@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SecureNotes">
         <activity
+            android:name=".activity.ReminderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.NoteActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
