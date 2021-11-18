@@ -4,15 +4,102 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EFFFFB"
+        android:orientation="horizontal">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="350dp"
+                android:layout_height="258dp"
+                android:layout_marginBottom="50dp"
+                android:background="#8CCEAE">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/editTextTextPersonName3"
+                            android:layout_width="61dp"
+                            android:layout_height="match_parent"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Notes" />
+
+                        <Button
+                            android:id="@+id/createNote"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="end"
+                            android:layout_marginLeft="220dp"
+                            android:background="@drawable/roundedbutton"
+                            android:backgroundTint="#834A4A"
+                            android:backgroundTintMode="src_over"
+                            android:text="+"
+                            android:textAlignment="center"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+
+            <ScrollView
+                android:layout_width="350dp"
+                android:layout_height="256dp"
+                android:background="#8CCEAE">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/editTextTextPersonName2"
+                            android:layout_width="95dp"
+                            android:layout_height="match_parent"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Reminders" />
+
+                        <Button
+                            android:id="@+id/createReminder"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="end"
+                            android:layout_marginLeft="186dp"
+                            android:background="@drawable/roundedbutton"
+                            android:backgroundTint="#834A4A"
+                            android:backgroundTintMode="src_over"
+                            android:text="+"
+                            android:textAlignment="center"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
