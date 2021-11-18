@@ -1,0 +1,11 @@
+- show Notes Problem
+- show Reminders Problem
+
+on specific Activity its working, not on MainActivity
+
+
+-Notification Problem
+No Push Notification triggered
+
+-Biometric Problem
+More Secure, can cancel and still receive access
