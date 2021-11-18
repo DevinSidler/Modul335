@@ -1,11 +1,12 @@
 package ch.zli.ds.securenotes.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class NoteModel {
     private int id;
-    private AtomicInteger idCount = new AtomicInteger(0);
+    private AtomicInteger idCount = new AtomicInteger();
     private String name;
     private LocalDateTime dateTime;
     private String note;

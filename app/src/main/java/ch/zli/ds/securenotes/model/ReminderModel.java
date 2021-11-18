@@ -4,18 +4,18 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ReminderModel {
     private int id;
-    private AtomicInteger idCount = new AtomicInteger(0);
+    private AtomicInteger idCount = new AtomicInteger();
     private String name;
-    private LocalDateTime dateTime;
-    private DateTimeFormatter formatter;
+    private Date dateTime;
 
-    public ReminderModel(String name, LocalDate date, LocalTime time) {
+    public ReminderModel(String name, Date date ){
         id = idCount.getAndIncrement();
         this.name = name;
-        this.dateTime = LocalDateTime.of(date,time);
+        this.dateTime = date;
     }
 }

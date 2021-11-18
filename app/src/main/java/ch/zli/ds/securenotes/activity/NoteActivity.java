@@ -2,6 +2,7 @@ package ch.zli.ds.securenotes.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -19,6 +20,9 @@ import ch.zli.ds.securenotes.R;
 import ch.zli.ds.securenotes.model.NoteModel;
 
 public class NoteActivity extends AppCompatActivity {
+
+    static final String key_notes = "Notes";
+
     List<NoteModel> notes = new LinkedList<>();
 
     protected EditText noteName;
@@ -33,7 +37,7 @@ public class NoteActivity extends AppCompatActivity {
 
         SharedPreferences mPref = getPreferences(MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = mPref.getString("Notes", gson.toJson(new ArrayList<NoteModel>()) );
+        String json = mPref.getString(key_notes, gson.toJson(new ArrayList<NoteModel>()) );
         notes = gson.fromJson(json, new TypeToken<List<NoteModel>>(){}.getType());
 
         noteName = findViewById(R.id.noteName);
@@ -55,8 +59,11 @@ public class NoteActivity extends AppCompatActivity {
         SharedPreferences.Editor prefsEditor = mPref.edit();
         Gson gson = new Gson();
         String json = gson.toJson(notes);
-        prefsEditor.putString("Notes", json);
+        prefsEditor.putString(key_notes, json);
         prefsEditor.commit();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
 
     }
 
