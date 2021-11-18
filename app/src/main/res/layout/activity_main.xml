@@ -20,30 +20,30 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="372dp"
+                android:layout_height="300dp"
                 android:paddingLeft="40dp"
                 android:paddingTop="40dp"
-                android:paddingRight="40dp"
-                android:paddingBottom="40dp">
+                android:paddingRight="40dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="258dp"
+                    android:background="#8CCEAE"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="79dp"
+                        android:layout_height="63dp"
                         android:layout_gravity="center"
                         android:orientation="horizontal">
 
-                        <EditText
-                            android:id="@+id/editTextTextPersonName3"
-                            android:layout_width="94dp"
-                            android:layout_height="67dp"
-                            android:ems="10"
-                            android:inputType="none"
-                            android:text="Notes" />
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Notes"
+                            android:textSize="24sp" />
 
                         <Button
                             android:id="@+id/createNote"
@@ -62,7 +62,7 @@
                     <ListView
                         android:id="@+id/noteView"
                         android:layout_width="match_parent"
-                        android:layout_height="212dp">
+                        android:layout_height="192dp">
 
                     </ListView>
 
@@ -80,7 +80,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="262dp"
+                    android:background="#8CCEAE"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -89,13 +90,13 @@
                         android:layout_gravity="center"
                         android:orientation="horizontal">
 
-                        <EditText
-                            android:id="@+id/editTextTextPersonName2"
-                            android:layout_width="109dp"
-                            android:layout_height="72dp"
-                            android:ems="10"
-                            android:inputType="none"
-                            android:text="Reminders" />
+                        <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Reminders"
+                            android:textSize="24sp" />
 
                         <Button
                             android:id="@+id/createReminder"
@@ -114,7 +115,7 @@
                     <ListView
                         android:id="@+id/reminderView"
                         android:layout_width="match_parent"
-                        android:layout_height="212dp" />
+                        android:layout_height="193dp" />
 
                 </LinearLayout>
 
