@@ -1,8 +1,10 @@
-package ch.zli.ds.securenotes;
+package ch.zli.ds.securenotes.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import ch.zli.ds.securenotes.R;
 
 public class MainActivity extends AppCompatActivity {
 
