@@ -2,9 +2,11 @@ package ch.zli.ds.securenotes.service;
 
 import android.app.IntentService;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
@@ -15,36 +17,30 @@ import ch.zli.ds.securenotes.activity.MainActivity;
 
 public class NotificationService extends IntentService {
 
-    private static final int notification_id = 3;
-
     public NotificationService(){
         super("NotificationService");
     }
 
     @Override
     protected void onHandleIntent(Intent intent){
-        /*Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle("Notification");
-        builder.setContentText("Body");
-        builder.setSmallIcon(R.drawable.ic_launcher_background);
 
-        Intent notifyIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 2, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(pendingIntent);
-        Notification notification = builder.build();
-        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
-        managerCompat.notify(notification_id, notification);
-        System.out.println("Notification");*/
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
-        Notification notification = new NotificationCompat.Builder(getBaseContext(), "notification_id")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Title")
-                .setContentText("Text")
-                .setDefaults(NotificationCompat.DEFAULT_SOUND)
+        int notifyID = 1;
+        String CHANNEL_ID = "my_channel_01";
+        CharSequence name = "Reminder";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+        Notification notification = new Notification.Builder(this)
+                .setContentTitle(intent.getStringExtra("description"))
+                .setContentText("")
+                .setSmallIcon(R.mipmap.ic_note_app_round)
+                .setChannelId(CHANNEL_ID)
                 .build();
 
-        notificationManager.notify(notification_id, notification);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.createNotificationChannel(mChannel);
+
+        mNotificationManager.notify(notifyID , notification);
     }
 
 }

@@ -14,10 +14,11 @@ import android.hardware.biometrics.BiometricPrompt;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CancellationSignal;
-import android.widget.ArrayAdapter;
+import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -28,12 +29,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ch.zli.ds.securenotes.R;
+import ch.zli.ds.securenotes.adapter.NoteAdapter;
+import ch.zli.ds.securenotes.adapter.ReminderAdapter;
 import ch.zli.ds.securenotes.model.NoteModel;
 import ch.zli.ds.securenotes.model.ReminderModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final String key_notes = "Notes";
+    static final String key_notes = "note";
     static final String key_reminders = "reminders";
 
     List<NoteModel> notes = new LinkedList<>();
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private CancellationSignal cancellationSignal = null;
     private BiometricPrompt.AuthenticationCallback authenticationCallback;
 
+    Context context;
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
@@ -55,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         authentication();
+
+        context = getApplicationContext();
 
         createNoteButton = findViewById(R.id.createNote);
         createReminderButton = findViewById(R.id.createReminder);
@@ -70,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         showNotes();
         showReminders();
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.P)
@@ -91,26 +96,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void showNotes() {
-        SharedPreferences mPref = getPreferences(MODE_PRIVATE);
+        SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         String json = mPref.getString(key_notes, gson.toJson(new ArrayList<NoteModel>()));
         notes = gson.fromJson(json, new TypeToken<List<NoteModel>>() {
         }.getType());
 
-        ArrayAdapter<NoteModel> adapter = new ArrayAdapter<>(this, R.layout.activity_main, notes);
+        NoteAdapter adapter = new NoteAdapter(this, notes);
         noteView.setAdapter(adapter);
 
+        noteView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NoteModel note = adapter.getItem(position);
+                Intent intent = new Intent(getApplicationContext(), NoteActivity.class);
+                intent.putExtra("note", note);
+                intent.putExtra("position", position);
+                startActivity(intent);
+            }
+        });
     }
 
     protected void showReminders() {
-        SharedPreferences mPref = getPreferences(MODE_PRIVATE);
+        SharedPreferences mPref = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
-        String json = mPref.getString(key_reminders, gson.toJson(new ArrayList<NoteModel>()));
-        reminders = gson.fromJson(json, new TypeToken<List<NoteModel>>() {
+        String json = mPref.getString(key_reminders, gson.toJson(new ArrayList<ReminderModel>()));
+        reminders = gson.fromJson(json, new TypeToken<List<ReminderModel>>() {
         }.getType());
 
-        ArrayAdapter<ReminderModel> adapter = new ArrayAdapter<>(this, R.layout.activity_main, reminders);
+        ReminderAdapter adapter = new ReminderAdapter(this, reminders);
         reminderView.setAdapter(adapter);
+
+        reminderView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ReminderModel reminder = adapter.getItem(position);
+                Intent intent = new Intent(getApplicationContext(),ReminderActivity.class);
+                intent.putExtra("reminder", reminder);
+                intent.putExtra("position", position);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -133,9 +159,9 @@ public class MainActivity extends AppCompatActivity {
         checkBiometricSupport();
         BiometricPrompt biometricPrompt = new BiometricPrompt
                 .Builder(getApplicationContext())
-                .setTitle("Title of Prompt")
-                .setSubtitle("Subtitle")
-                .setDescription("Uses FP")
+                .setTitle("Biometric Authentication")
+                .setSubtitle("")
+                .setDescription("Use your Fingerprint")
                 .setNegativeButton("Cancel", getMainExecutor(), new DialogInterface.OnClickListener() {
                     @Override
                     public void
