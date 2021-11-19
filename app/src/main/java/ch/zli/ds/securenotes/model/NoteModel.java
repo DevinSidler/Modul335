@@ -1,20 +1,33 @@
 package ch.zli.ds.securenotes.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class NoteModel {
-    private int id;
-    private AtomicInteger idCount = new AtomicInteger();
+public class NoteModel implements Serializable {
     private String name;
-    private LocalDateTime dateTime;
     private String note;
 
     public NoteModel(String name,  String note) {
-        id = idCount.getAndIncrement();
         this.name = name;
-        this.dateTime = LocalDateTime.now();
+        this.note = note;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
         this.note = note;
     }
 }
